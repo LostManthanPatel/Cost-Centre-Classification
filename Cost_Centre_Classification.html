@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cost Center Classification Tool</title>
+<script>
+function determineCostCenter() {
+    const rAndD = document.getElementById('rAndD').checked;
+    const gateway = document.getElementById('gateway').checked;
+    const silicon = document.getElementById('silicon').checked;
+    const rfModem = document.getElementById('rfModem').checked;
+    const antenna = document.getElementById('antenna').checked;
+    const hourly = document.getElementById('hourly').checked;
+    const transform = document.getElementById('transform').checked;
+    const supervisor = document.getElementById('supervisor').checked;
+    const support = document.getElementById('support').checked;
+
+    if (rAndD) return "6978 - Customer Terminal R&D";
+    if (gateway) return "6992 - Ground Gateway Equipment";
+    if (silicon) return "7582 - Silicon Development";
+    if (rfModem) return "7583 - RF/Modem Development";
+    if (antenna) return "7584 - Antenna Development";
+    if (hourly) {
+        if (transform) return "5919 - Direct Labor";
+        else return "5992 - Non-Assignable Hourly";
+    } else {
+        if (supervisor) return "5920 - Supervision";
+        if (support) return "5918 - Indirect Labor";
+        else return "5993 - Non-Assignable Salary";
+    }
+}
+
+function showResult() {
+    const costCenter = determineCostCenter();
+    document.getElementById('result').textContent = `The appropriate cost center is ${costCenter}.`;
+}
+</script>
+</head>
+<body>
+<h1>Cost Center Classification Tool</h1>
+<form>
+    <p><input type="checkbox" id="rAndD"> Involved in Customer Terminal R&D</p>
+    <p><input type="checkbox" id="gateway"> Involved in Ground Gateway Equipment</p>
+    <p><input type="checkbox" id="silicon"> Involved in Silicon Development</p>
+    <p><input type="checkbox" id="rfModem"> Involved in RF/Modem Development</p>
+    <p><input type="checkbox" id="antenna"> Involved in Antenna Development</p>
+    <p><input type="checkbox" id="hourly"> Is the employee hourly?</p>
+    <p><input type="checkbox" id="transform"> Does the employee transform materials on the floor?</p>
+    <p><input type="checkbox" id="supervisor"> Is the employee a supervisor overseeing production goals?</p>
+    <p><input type="checkbox" id="support"> Does the employee support manufacturing indirectly?</p>
+    <button type="button" onclick="showResult()">Determine Cost Center</button>
+</form>
+<p id="result"></p>
+</body>
+</html>
